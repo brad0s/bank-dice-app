@@ -11,6 +11,7 @@ export const GameContextProvider = ({ children }) => {
   const [totalRounds, setTotalRounds] = useState(20);
   const [currentRound, setCurrentRound] = useState(0);
   const [bank, setBank] = useState(0);
+  const [prevBank, setPrevBank] = useState(0);
   const [diceRolls, setDiceRolls] = useState(0);
 
   const contextValue = {
@@ -28,6 +29,8 @@ export const GameContextProvider = ({ children }) => {
     setCurrentRound,
     bank,
     setBank,
+    prevBank,
+    setPrevBank,
     diceRolls,
     setDiceRolls,
   };
@@ -38,6 +41,7 @@ export const GameContextProvider = ({ children }) => {
       return player;
     });
     setPlayers([...resetPlayers]);
+    setPrevBank(0);
     setBank(0);
     setDiceRolls(0);
   };

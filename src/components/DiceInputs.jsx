@@ -4,24 +4,35 @@ import GameContext from '../context/GameContext';
 const diceInputs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'doubles'];
 
 function DiceInputs() {
-  let { players, setCurrentRound, setBank, setCurrentTurnIndex, diceRolls, setDiceRolls } =
-    useContext(GameContext);
+  let {
+    players,
+    setCurrentRound,
+    bank,
+    setBank,
+    setPrevBank,
+    setCurrentTurnIndex,
+    diceRolls,
+    setDiceRolls,
+  } = useContext(GameContext);
 
   const handleDiceClick = (value) => {
     setCurrentTurnIndex((prev) => (prev + 1) % players.length);
     setDiceRolls((prev) => prev + 1);
     switch (value) {
       case 'doubles':
+        setPrevBank(bank);
         setBank((prev) => prev * 2);
         break;
       case 7:
         if (diceRolls <= 2) {
+          setPrevBank(bank);
           setBank((prev) => prev + value);
         } else {
           setCurrentRound((prev) => prev + 1);
         }
         break;
       default:
+        setPrevBank(bank);
         setBank((prev) => prev + value);
         break;
     }
@@ -54,15 +65,14 @@ const DiceInput = ({ input, handleOnClick }) => {
   let [bgColor, setBgColor] = useState('none');
 
   useEffect(() => {
-    console.log(`DiceInput: ${input} rerender`);
+    // console.log(`DiceInput: ${input} rerender`);
     if (input === 7 && diceRolls > 2) {
       setBgColor('red');
     } else {
       setBgColor('none');
     }
   }, [diceRolls]);
-
-  console.log(bgColor);
+  // console.log(bgColor);
 
   return (
     <div>

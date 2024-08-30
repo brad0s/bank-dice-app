@@ -1,8 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import GameContext from '../context/GameContext';
+import CountUp from 'react-countup';
 
 function InfoHeader() {
-  let { totalRounds, currentRound, bank, currentTurnPlayer, diceRolls } = useContext(GameContext);
+  let { totalRounds, currentRound, bank, prevBank, currentTurnPlayer, diceRolls } =
+    useContext(GameContext);
 
   return (
     <>
@@ -24,7 +26,12 @@ function InfoHeader() {
           </span>
         </div>
         <div style={{ padding: '1rem' }}>
-          <h2 style={{ fontSize: `4rem`, margin: 0, lineHeight: 1 }}>{bank}</h2>
+          {/* <h2 style={{ fontSize: `4rem`, margin: 0, lineHeight: 1 }}>{bank}</h2> */}
+          <CountUp
+            style={{ fontSize: `4rem`, margin: 0, lineHeight: 1, fontWeight: 700 }}
+            start={prevBank}
+            end={bank}
+          />
           <p style={{ margin: 0 }}>round total</p>
         </div>
         <div
