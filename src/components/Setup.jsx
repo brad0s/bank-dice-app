@@ -60,7 +60,7 @@ function GameSetupScreen() {
   return (
     <>
       <section className='Game-setup'>
-        <h1>Setup</h1>
+        <h2>Setup</h2>
         <form
           action=''
           onSubmit={(e) => handleFormSubmit(e)}
@@ -84,7 +84,18 @@ function GameSetupScreen() {
               gap: 10,
             }}
           >
-            <p>Players</p>
+            <p>
+              <span>Add Players</span>
+              <small
+                style={{
+                  display: 'block',
+                  fontStyle: 'italic',
+                  fontSize: '0.75rem',
+                }}
+              >
+                must have at least 2 players
+              </small>
+            </p>
             {players.map((player) => {
               return (
                 <PlayerInput
@@ -98,7 +109,14 @@ function GameSetupScreen() {
               );
             })}
           </fieldset>
-          <button type='submit'>Start</button>
+          <button
+            type='submit'
+            style={{
+              marginTop: '1rem',
+            }}
+          >
+            Start
+          </button>
         </form>
       </section>
     </>
