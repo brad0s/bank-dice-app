@@ -4,6 +4,7 @@ import Setup from './components/Setup';
 import { GameStatus } from './utils/helpers';
 import './App.css';
 import GamePlay from './components/GamePlay';
+import Header from './components/Header';
 
 function App() {
   let { status } = useContext(GameContext);
@@ -15,7 +16,13 @@ function App() {
     screen = <GamePlay />;
   }
 
-  return <>{screen}</>;
+  // return <>{screen}</>;
+  return (
+    <>
+      <Header />
+      {screen}
+    </>
+  );
 }
 
 export default App;
