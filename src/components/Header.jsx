@@ -1,5 +1,11 @@
 // import { useContext, useRef, useEffect } from 'react';
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import InfoModal from './InfoModal';
+
 function Header() {
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
   return (
     <header
       style={{
@@ -42,6 +48,7 @@ function Header() {
           background: 'none',
           padding: '0.35rem 0.75rem',
         }}
+        onClick={() => setShowInfoModal(true)}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -55,6 +62,8 @@ function Header() {
           />
         </svg>
       </button>
+      {showInfoModal &&
+        createPortal(<InfoModal onClose={() => setShowInfoModal(false)} />, document.body)}
     </header>
   );
 }
