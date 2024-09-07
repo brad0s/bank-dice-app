@@ -31,6 +31,7 @@ function InfoHeader() {
             style={{ fontSize: `4rem`, margin: 0, lineHeight: 1, fontWeight: 700 }}
             start={prevBank}
             end={bank}
+            duration={1}
           />
           <p style={{ margin: 0 }}>round total</p>
         </div>
