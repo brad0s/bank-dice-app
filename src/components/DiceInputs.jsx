@@ -26,7 +26,7 @@ function DiceInputs() {
       case 7:
         if (diceRolls <= 2) {
           setPrevBank(bank);
-          setBank((prev) => prev + value);
+          setBank((prev) => prev + 70);
         } else {
           setCurrentRound((prev) => prev + 1);
         }
