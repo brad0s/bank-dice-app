@@ -62,27 +62,31 @@ function DiceInputs() {
 
 const DiceInput = ({ input, handleOnClick }) => {
   let { diceRolls } = useContext(GameContext);
-  let [bgColor, setBgColor] = useState('none');
+  let [bgColor, setBgColor] = useState('black');
+  const className = 'dice-button dice-button--' + bgColor;
+  let isDisabled = false;
+
+  if (input === 'doubles' && diceRolls <= 2) {
+    isDisabled = true;
+  }
+  if ((input === 2 || input === 12) && diceRolls > 2) {
+    isDisabled = true;
+  }
 
   useEffect(() => {
-    // console.log(`DiceInput: ${input} rerender`);
-    if (input === 7 && diceRolls > 2) {
+    if (input == 7 && diceRolls > 2) {
       setBgColor('red');
     } else {
-      setBgColor('none');
+      setBgColor('black');
     }
   }, [diceRolls]);
-  // console.log(bgColor);
 
   return (
     <div>
       <button
         onClick={() => handleOnClick(input)}
-        style={{
-          width: `100%`,
-          backgroundColor: bgColor,
-        }}
-        disabled={input === 'doubles' && diceRolls <= 2}
+        className={className}
+        disabled={isDisabled}
       >
         {input}
       </button>
