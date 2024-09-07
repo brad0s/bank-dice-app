@@ -8,14 +8,6 @@ export const PlayerInputInit = {
   name: '',
 };
 
-// TODO
-export const getCurrentTurnPlayer = (players, currentTurn) => {
-  const availablePlayers = players.filter((player) => player.isBanked === false);
-  const current = currentTurn % availablePlayers.length;
-  const currentPlayer = availablePlayers[current];
-  return currentPlayer;
-};
-
 export const playerTurnRotator = (players, currentPlayer) => {
   let currentPlayerIndex = players.findIndex((p) => p.id === currentPlayer.id) ?? 0;
 
