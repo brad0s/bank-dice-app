@@ -53,6 +53,10 @@ export const GameContextProvider = ({ children }) => {
       gameOver();
     } else {
       roundReset();
+      if (currentTurnPlayer) {
+        let currentPlayer = playerTurnRotator(players, currentTurnPlayer);
+        setCurrentTurnPlayer(currentPlayer);
+      }
     }
   }, [currentRound]);
 
