@@ -2,11 +2,10 @@ import { useContext } from 'react';
 import { GameContext } from '../context/GameContext.jsx';
 import { GameStatus } from '../utils/helpers.js';
 
-let playerId = 1;
+// let playerId = 1;
 
 function GameSetupScreen() {
-  let { totalRounds, setTotalRounds, players, setPlayers, setStatus, setCurrentTurnPlayer } =
-    useContext(GameContext);
+  let { totalRounds, setTotalRounds, players, setPlayers, setStatus } = useContext(GameContext);
 
   const handleCurrentCheckedRoundChange = (e) => {
     setTotalRounds(e.target.value);
@@ -15,8 +14,8 @@ function GameSetupScreen() {
   const radioInputs = [{ value: 10 }, { value: 15 }, { value: 20 }];
 
   const playerInputAdd = () => {
-    playerId = playerId + 1;
-    setPlayers([...players, { id: playerId, name: '', bank: 0, isBanked: false }]);
+    // playerId = playerId + 1;
+    setPlayers([...players, { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false }]);
   };
 
   const playerInputRemove = (id) => {
@@ -33,6 +32,7 @@ function GameSetupScreen() {
     setPlayers(newPlayers);
   };
 
+  // TODO: check if player name already exists
   const validateForm = () => {
     let isValid = true;
     if (!totalRounds) {
@@ -46,7 +46,7 @@ function GameSetupScreen() {
 
   const formSubmission = () => {
     setStatus(GameStatus.PLAYING);
-    setCurrentTurnPlayer(players[0]);
+    // setCurrentTurnPlayer(players[0]); // let context handle this
   };
 
   const handleFormSubmit = (e) => {

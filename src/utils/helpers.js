@@ -9,12 +9,28 @@ export const PlayerInputInit = {
 };
 
 export const playerTurnRotator = (players, currentPlayer) => {
-  let currentPlayerIndex = players.findIndex((p) => p.id === currentPlayer.id) ?? 0;
+  console.log(currentPlayer);
+  // if (players.length === 0) {
+  //   return null;
+  // }
+  // if (!currentPlayer) {
+  //   return players[0];
+  // }
+  // if no currentPlayer, return the first unbanked player
+  if (!currentPlayer) {
+    return players.find(p => !p.isBanked) || null;
+  }
+
+  let currentPlayerIndex = players.findIndex((p) => p.id === currentPlayer.id);
+  if (currentPlayerIndex === -1) {
+    currentPlayerIndex = 0;
+  }
 
   if (players.every((player) => player.isBanked === true)) {
     return players[currentPlayerIndex];
   }
 
+  // refactor to make sure there is a fail safe to prevent inifinte loop 
   while (true) {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     const newCurrentPlayer = players[currentPlayerIndex];
