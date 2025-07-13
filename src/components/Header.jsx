@@ -65,11 +65,6 @@ function Header() {
         {showInfoModal &&
           createPortal(<InfoModal onClose={() => setShowInfoModal(false)} />, document.body)}
       </header>
-      <div
-        style={{
-          height: '4rem',
-        }}
-      ></div>
     </>
   );
 }
