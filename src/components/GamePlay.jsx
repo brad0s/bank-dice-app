@@ -1,6 +1,7 @@
 import DiceInputs from './DiceInputs';
 import PlayersList from './PlayerList';
 import InfoHeader from './InfoHeader';
+import DiceRoll from './DiceRoll';
 
 function GamePlay() {
   return (
@@ -8,6 +9,7 @@ function GamePlay() {
       <InfoHeader />
       <PlayersList />
       <DiceInputs />
+      <DiceRoll />
     </>
   );
 }

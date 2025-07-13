@@ -1,4 +1,3 @@
-// import { useContext, useRef, useEffect } from 'react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import InfoModal from './InfoModal';
@@ -66,11 +65,6 @@ function Header() {
         {showInfoModal &&
           createPortal(<InfoModal onClose={() => setShowInfoModal(false)} />, document.body)}
       </header>
-      <div
-        style={{
-          height: '4rem',
-        }}
-      ></div>
     </>
   );
 }
