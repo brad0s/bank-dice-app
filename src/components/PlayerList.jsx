@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import GameContext from '../context/GameContext';
 import { checkIfAllPlayersAreBanked, playerTurnRotator } from '../utils/helpers';
 
@@ -89,6 +90,15 @@ const PlayerListItem = ({ player }) => {
       </button>
     </div>
   );
+};
+
+PlayerListItem.propTypes = {
+  player: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    bank: PropTypes.number.isRequired,
+    isBanked: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default PlayersList;

@@ -26,6 +26,7 @@ export const playerTurnRotator = (players, currentPlayer) => {
     currentPlayerIndex = 0;
   }
 
+  // TODO: this should not return the currentplayer if all players are banked
   if (players.every((player) => player.isBanked === true)) {
     return players[currentPlayerIndex];
   }
