@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { GameContext } from './context/GameContext';
 import Setup from './components/Setup';
 import { GameStatus } from './utils/helpers';
-import './App.css';
 import GamePlay from './components/GamePlay';
 import Header from './components/Header';
 import GameOver from './components/GameOver';
+import './App.css';
 
 function App() {
   let { status } = useContext(GameContext);

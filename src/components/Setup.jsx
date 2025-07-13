@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { GameContext } from '../context/GameContext.jsx';
 import { GameStatus } from '../utils/helpers.js';
 
-// let playerId = 1;
-
 function GameSetupScreen() {
   let { totalRounds, setTotalRounds, players, setPlayers, setStatus } = useContext(GameContext);
 
@@ -15,7 +13,6 @@ function GameSetupScreen() {
   const radioInputs = [{ value: 10 }, { value: 15 }, { value: 20 }];
 
   const playerInputAdd = () => {
-    // playerId = playerId + 1;
     setPlayers([...players, { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false }]);
   };
 
