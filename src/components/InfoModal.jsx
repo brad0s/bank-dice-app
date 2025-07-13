@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function InfoModal({ onClose }) {
   return (
     <div
@@ -60,7 +62,7 @@ function InfoModal({ onClose }) {
           <p>&nbsp;</p>
           <p>Starting Out:</p>
           <p>
-            Insert all players' names into the BANK app PLAYERS screen and choose a Scorekeeper
+            Insert all players{"'"} names into the BANK app PLAYERS screen and choose a Scorekeeper
             (BANKER) who will manage the BANK Game App.
           </p>
           <p>
@@ -78,7 +80,7 @@ function InfoModal({ onClose }) {
             player rolls and does the same thing.
           </p>
           <p>
-            MOST PEOPLE SIT AROUND A TABLE TO PLAYAND ROTATE PLAYERS SEQUENTIALLY GOING CLOCKWISE.
+            MOST PEOPLE SIT AROUND A TABLE TO PLAY AND ROTATE PLAYERS SEQUENTIALLY GOING CLOCKWISE.
           </p>
           <p>&nbsp;</p>
           <p>Important Dice Rules:</p>
@@ -87,36 +89,36 @@ function InfoModal({ onClose }) {
             number in the BANK. Rolling a 7 ends a round. &nbsp;
           </p>
           <p>
-            Rolling "doubles" (the dice land on the same number on both dice) doubles the cumulative
-            score on the BANK screen.
+            Rolling {'"'}doubles{'"'} (the dice land on the same number on both dice) doubles the
+            cumulative score on the BANK screen.
           </p>
           <p>
             The first three rollers have an advantage because if they roll a 7 (that would typically
             end the game), their 7s are worth 70 BANK points. &nbsp;
           </p>
           <p>
-            However, their disadvantage is that if they roll "doubles," the score added to the BANK
-            is only face value on the dice --
+            However, their disadvantage is that if they roll {'"'}doubles,{'"'} the score added to
+            the BANK is only face value on the dice --
           </p>
           <p>i.e. Two ones = Two points, Two fives = Ten points</p>
           <p>
             After the first three dice rollers (so starting with the fourth roll/person), rolling a
-            7 will end a round and rolling "doubles" will double the cumulative score,
+            7 will end a round and rolling {'"'}doubles{'"'} will double the cumulative score,
           </p>
           <p>which is an advantage to everyone thereafter.</p>
           <p>&nbsp;</p>
           <p>Scoring:</p>
           <p>
-            At any point, any player (regardless of whose turn it is) can call out "BANK" which
-            automatically pauses the game. &nbsp;
+            At any point, any player (regardless of whose turn it is) can call out {'"'}BANK{'"'}{' '}
+            which automatically pauses the game. &nbsp;
           </p>
           <p>
-            The BANKER then clicks on the BANK tile on the app and clicks on the person's name who
-            called out BANK.
+            The BANKER then clicks on the BANK tile on the app and clicks on the person{"'"}s name
+            who called out BANK.
           </p>
           <p>
-            The app will then add the score from the BANK cumulative total to that person's personal
-            score.
+            The app will then add the score from the BANK cumulative total to that person{"'"}s
+            personal score.
           </p>
           <p>
             There is no limit to how many people BANK the points on the screen. However, once
@@ -154,5 +156,9 @@ function InfoModal({ onClose }) {
     </div>
   );
 }
+
+InfoModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default InfoModal;

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import GameContext from '../context/GameContext';
-import { GameStatus } from '../utils/helpers';
+// import { GameStatus } from '../utils/helpers';
 
 function GameOver() {
   let { players, gameReset } = useContext(GameContext);

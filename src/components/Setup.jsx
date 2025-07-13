@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { GameContext } from '../context/GameContext.jsx';
 import { GameStatus } from '../utils/helpers.js';
 
@@ -71,7 +72,6 @@ function GameSetupScreen() {
               <RoundRadio
                 key={radio.value}
                 value={radio.value}
-                checked={radio.checked}
                 currentCheckedRound={totalRounds}
                 onChange={handleCurrentCheckedRoundChange}
               />
@@ -123,7 +123,7 @@ function GameSetupScreen() {
   );
 }
 
-const RoundRadio = ({ value, checked, currentCheckedRound, onChange }) => {
+const RoundRadio = ({ value, currentCheckedRound, onChange }) => {
   return (
     <div className='player-input'>
       <label>
@@ -139,6 +139,13 @@ const RoundRadio = ({ value, checked, currentCheckedRound, onChange }) => {
       </label>
     </div>
   );
+};
+
+RoundRadio.propTypes = {
+  value: PropTypes.number.isRequired,
+  checked: PropTypes.bool,
+  currentCheckedRound: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const PlayerInput = ({ id, name, handleAdd, handleRemove, handlePlayerInput }) => {
@@ -214,6 +221,14 @@ const PlayerInput = ({ id, name, handleAdd, handleRemove, handlePlayerInput }) =
       </div>
     </div>
   );
+};
+
+PlayerInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  handleAdd: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired,
+  handlePlayerInput: PropTypes.func.isRequired,
 };
 
 export default GameSetupScreen;

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import GameContext from '../context/GameContext';
 
 const diceInputs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'doubles'];
@@ -92,6 +93,11 @@ const DiceInput = ({ input, handleOnClick }) => {
       </button>
     </div>
   );
+};
+
+DiceInput.propTypes = {
+  input: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  handleOnClick: PropTypes.func.isRequired,
 };
 
 export default DiceInputs;
