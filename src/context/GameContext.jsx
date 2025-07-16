@@ -19,10 +19,6 @@ export const GameContextProvider = ({ children }) => {
   const [diceRolls, setDiceRolls] = useState(0);
 
   const roundReset = () => {
-    // const resetPlayers = players.map((player) => {
-    //   player.isBanked = false;
-    //   return player;
-    // });
     const resetPlayers = players.map((player) => ({
       ...player,
       isBanked: false,
@@ -59,8 +55,6 @@ export const GameContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (status === GameStatus.PLAYING) {
-      // let currentPlayer = playerTurnRotator(players, currentTurnPlayer);
-      // setCurrentTurnPlayer(currentPlayer);
       nextTurn();
     }
   }, [currentTurnIndex, status]);
@@ -71,8 +65,6 @@ export const GameContextProvider = ({ children }) => {
     } else {
       roundReset();
       if (currentTurnPlayer) {
-        // let currentPlayer = playerTurnRotator(players, currentTurnPlayer);
-        // setCurrentTurnPlayer(currentPlayer);
         nextTurn();
       }
     }
