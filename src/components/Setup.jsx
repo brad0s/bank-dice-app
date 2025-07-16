@@ -1,12 +1,10 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { GameContext } from '../context/GameContext.jsx';
 import { GameStatus } from '../utils/helpers.js';
 
-let playerId = 1;
-
 function GameSetupScreen() {
-  let { totalRounds, setTotalRounds, players, setPlayers, setStatus, setCurrentTurnPlayer } =
-    useContext(GameContext);
+  let { totalRounds, setTotalRounds, players, setPlayers, setStatus } = useContext(GameContext);
 
   const handleCurrentCheckedRoundChange = (e) => {
     setTotalRounds(e.target.value);
@@ -15,8 +13,7 @@ function GameSetupScreen() {
   const radioInputs = [{ value: 10 }, { value: 15 }, { value: 20 }];
 
   const playerInputAdd = () => {
-    playerId = playerId + 1;
-    setPlayers([...players, { id: playerId, name: '', bank: 0, isBanked: false }]);
+    setPlayers([...players, { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false }]);
   };
 
   const playerInputRemove = (id) => {
@@ -33,6 +30,7 @@ function GameSetupScreen() {
     setPlayers(newPlayers);
   };
 
+  // TODO: check if player name already exists
   const validateForm = () => {
     let isValid = true;
     if (!totalRounds) {
@@ -46,7 +44,7 @@ function GameSetupScreen() {
 
   const formSubmission = () => {
     setStatus(GameStatus.PLAYING);
-    setCurrentTurnPlayer(players[0]);
+    // setCurrentTurnPlayer(players[0]); // let context handle this
   };
 
   const handleFormSubmit = (e) => {
@@ -60,7 +58,7 @@ function GameSetupScreen() {
   return (
     <>
       <section className='Game-setup'>
-        <h1>Setup</h1>
+        <h2>Setup</h2>
         <form
           action=''
           onSubmit={(e) => handleFormSubmit(e)}
@@ -71,7 +69,6 @@ function GameSetupScreen() {
               <RoundRadio
                 key={radio.value}
                 value={radio.value}
-                checked={radio.checked}
                 currentCheckedRound={totalRounds}
                 onChange={handleCurrentCheckedRoundChange}
               />
@@ -84,7 +81,18 @@ function GameSetupScreen() {
               gap: 10,
             }}
           >
-            <p>Players</p>
+            <p>
+              <span>Add Players</span>
+              <small
+                style={{
+                  display: 'block',
+                  fontStyle: 'italic',
+                  fontSize: '0.75rem',
+                }}
+              >
+                must have at least 2 players
+              </small>
+            </p>
             {players.map((player) => {
               return (
                 <PlayerInput
@@ -98,14 +106,21 @@ function GameSetupScreen() {
               );
             })}
           </fieldset>
-          <button type='submit'>Start</button>
+          <button
+            type='submit'
+            style={{
+              marginTop: '1rem',
+            }}
+          >
+            Start
+          </button>
         </form>
       </section>
     </>
   );
 }
 
-const RoundRadio = ({ value, checked, currentCheckedRound, onChange }) => {
+const RoundRadio = ({ value, currentCheckedRound, onChange }) => {
   return (
     <div className='player-input'>
       <label>
@@ -121,6 +136,13 @@ const RoundRadio = ({ value, checked, currentCheckedRound, onChange }) => {
       </label>
     </div>
   );
+};
+
+RoundRadio.propTypes = {
+  value: PropTypes.number.isRequired,
+  checked: PropTypes.bool,
+  currentCheckedRound: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const PlayerInput = ({ id, name, handleAdd, handleRemove, handlePlayerInput }) => {
@@ -196,6 +218,14 @@ const PlayerInput = ({ id, name, handleAdd, handleRemove, handlePlayerInput }) =
       </div>
     </div>
   );
+};
+
+PlayerInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  handleAdd: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired,
+  handlePlayerInput: PropTypes.func.isRequired,
 };
 
 export default GameSetupScreen;

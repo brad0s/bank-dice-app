@@ -1,27 +1,39 @@
 import { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import GameContext from '../context/GameContext';
 
 const diceInputs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'doubles'];
 
 function DiceInputs() {
-  let { players, setCurrentRound, setBank, setCurrentTurnIndex, diceRolls, setDiceRolls } =
-    useContext(GameContext);
+  let {
+    players,
+    setCurrentRound,
+    bank,
+    setBank,
+    setPrevBank,
+    setCurrentTurnIndex,
+    diceRolls,
+    setDiceRolls,
+  } = useContext(GameContext);
 
   const handleDiceClick = (value) => {
     setCurrentTurnIndex((prev) => (prev + 1) % players.length);
     setDiceRolls((prev) => prev + 1);
     switch (value) {
       case 'doubles':
+        setPrevBank(bank);
         setBank((prev) => prev * 2);
         break;
       case 7:
         if (diceRolls <= 2) {
-          setBank((prev) => prev + value);
+          setPrevBank(bank);
+          setBank((prev) => prev + 70);
         } else {
           setCurrentRound((prev) => prev + 1);
         }
         break;
       default:
+        setPrevBank(bank);
         setBank((prev) => prev + value);
         break;
     }
@@ -51,33 +63,41 @@ function DiceInputs() {
 
 const DiceInput = ({ input, handleOnClick }) => {
   let { diceRolls } = useContext(GameContext);
-  let [bgColor, setBgColor] = useState('none');
+  let [bgColor, setBgColor] = useState('black');
+  const className = 'dice-button dice-button--' + bgColor;
+  let isDisabled = false;
+
+  if (input === 'doubles' && diceRolls <= 2) {
+    isDisabled = true;
+  }
+  if ((input === 2 || input === 12) && diceRolls > 2) {
+    isDisabled = true;
+  }
 
   useEffect(() => {
-    console.log(`DiceInput: ${input} rerender`);
-    if (input === 7 && diceRolls > 2) {
+    if (input == 7 && diceRolls > 2) {
       setBgColor('red');
     } else {
-      setBgColor('none');
+      setBgColor('black');
     }
   }, [diceRolls]);
-
-  console.log(bgColor);
 
   return (
     <div>
       <button
         onClick={() => handleOnClick(input)}
-        style={{
-          width: `100%`,
-          backgroundColor: bgColor,
-        }}
-        disabled={input === 'doubles' && diceRolls <= 2}
+        className={className}
+        disabled={isDisabled}
       >
         {input}
       </button>
     </div>
   );
+};
+
+DiceInput.propTypes = {
+  input: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  handleOnClick: PropTypes.func.isRequired,
 };
 
 export default DiceInputs;

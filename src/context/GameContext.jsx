@@ -1,17 +1,74 @@
 import { createContext, useEffect, useState } from 'react';
-import { GameStatus, getCurrentTurnPlayer, playerTurnRotator } from '../utils/helpers';
+import PropTypes from 'prop-types';
+import { GameStatus, playerTurnRotator } from '../utils/helpers';
 
 export const GameContext = createContext();
 
 export const GameContextProvider = ({ children }) => {
   const [status, setStatus] = useState(GameStatus.INIT);
-  const [players, setPlayers] = useState([{ id: 0, name: '', bank: 0, isBanked: false }]);
+  const [players, setPlayers] = useState([
+    { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false },
+    { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false },
+  ]);
   const [currentTurnIndex, setCurrentTurnIndex] = useState(0);
   const [currentTurnPlayer, setCurrentTurnPlayer] = useState(null);
   const [totalRounds, setTotalRounds] = useState(20);
   const [currentRound, setCurrentRound] = useState(0);
   const [bank, setBank] = useState(0);
+  const [prevBank, setPrevBank] = useState(0);
   const [diceRolls, setDiceRolls] = useState(0);
+
+  const roundReset = () => {
+    const resetPlayers = players.map((player) => ({
+      ...player,
+      isBanked: false,
+    }));
+    setPlayers([...resetPlayers]);
+    setPrevBank(0);
+    setBank(0);
+    setDiceRolls(0);
+  };
+
+  const gameOver = () => {
+    setStatus(GameStatus.END);
+  };
+
+  const gameReset = () => {
+    setStatus(GameStatus.INIT);
+    setPlayers([
+      { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false },
+      { id: crypto.randomUUID(), name: '', bank: 0, isBanked: false },
+    ]);
+    setCurrentTurnIndex(0);
+    setCurrentTurnPlayer(null);
+    setTotalRounds(20);
+    setCurrentRound(0);
+    setBank(0);
+    setPrevBank(0);
+    setDiceRolls(0);
+  };
+
+  const nextTurn = () => {
+    let currentPlayer = playerTurnRotator(players, currentTurnPlayer);
+    setCurrentTurnPlayer(currentPlayer);
+  };
+
+  useEffect(() => {
+    if (status === GameStatus.PLAYING) {
+      nextTurn();
+    }
+  }, [currentTurnIndex, status]);
+
+  useEffect(() => {
+    if (currentRound >= totalRounds) {
+      gameOver();
+    } else {
+      roundReset();
+      if (currentTurnPlayer) {
+        nextTurn();
+      }
+    }
+  }, [currentRound]);
 
   const contextValue = {
     status,
@@ -28,32 +85,18 @@ export const GameContextProvider = ({ children }) => {
     setCurrentRound,
     bank,
     setBank,
+    prevBank,
+    setPrevBank,
     diceRolls,
     setDiceRolls,
+    gameReset,
   };
-
-  const roundReset = () => {
-    const resetPlayers = players.map((player) => {
-      player.isBanked = false;
-      return player;
-    });
-    setPlayers([...resetPlayers]);
-    setBank(0);
-    setDiceRolls(0);
-  };
-
-  useEffect(() => {
-    if (status === GameStatus.PLAYING) {
-      let currentPlayer = playerTurnRotator(players, currentTurnPlayer);
-      setCurrentTurnPlayer(currentPlayer);
-    }
-  }, [currentTurnIndex, status]);
-
-  useEffect(() => {
-    roundReset();
-  }, [currentRound]);
 
   return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;
+};
+
+GameContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default GameContext;
