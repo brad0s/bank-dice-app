@@ -63,7 +63,14 @@ function GameSetupScreen() {
           action=''
           onSubmit={(e) => handleFormSubmit(e)}
         >
-          <fieldset>
+          <fieldset
+            style={{
+              border: `1px solid black`,
+              borderRadius: 5,
+              padding: '0.5rem 1rem',
+              marginBottom: '0.5rem',
+            }}
+          >
             <p>Rounds</p>
             {radioInputs.map((radio) => (
               <RoundRadio
@@ -79,6 +86,9 @@ function GameSetupScreen() {
               display: 'flex',
               flexFlow: 'column',
               gap: 10,
+              border: `1px solid black`,
+              borderRadius: 5,
+              padding: '0.5rem 1rem',
             }}
           >
             <p>
