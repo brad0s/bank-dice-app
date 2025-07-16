@@ -20,13 +20,13 @@ function InfoModal({ onClose }) {
         style={{
           borderRadius: '0.3rem',
           boxShadow: '0 0 10px 7px rgba(0,0,0,0.2)',
-          padding: '2rem',
           background: '#1e1e1e',
           position: 'relative',
           boxSizing: 'border-box',
           height: 500,
-          overflowY: 'scroll',
+          overflow: 'hidden',
           maxWidth: 720,
+          paddingRight: '0.2rem',
         }}
       >
         <button
@@ -52,7 +52,15 @@ function InfoModal({ onClose }) {
             />
           </svg>
         </button>
-        <div>
+        <div
+          style={{
+            height: 'calc(100% - 2.5rem)',
+            overflowY: 'scroll',
+            boxSizing: 'border-box',
+            padding: '0 2rem 2rem 2rem',
+            marginTop: '2.5rem',
+          }}
+        >
           <p>
             How Do We Play?
             <br />
