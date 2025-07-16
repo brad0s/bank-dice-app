@@ -61,12 +61,9 @@ function InfoModal({ onClose }) {
             marginTop: '2.5rem',
           }}
         >
-          <p>
-            How Do We Play?
-            <br />
-            Object Of The Game:
-          </p>
-          <p>To be the player who BANKs the most points by the end of 20 rounds!</p>
+          <h2>How Do We Play?</h2>
+          <p>Object Of The Game:</p>
+          <p>To be the player who BANKs the most points by the end of all rounds!</p>
           <p>&nbsp;</p>
           <p>Starting Out:</p>
           <p>
