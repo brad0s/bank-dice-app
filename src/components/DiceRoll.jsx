@@ -141,7 +141,15 @@ function DiceRoll() {
           {diceRoll && diceRoll[1]}
         </div>
       </div>
-      <button onClick={handleRollDiceClick}>Roll Dice</button>
+      <button
+        onClick={handleRollDiceClick}
+        disabled={isDiceRolling}
+        style={{
+          opacity: isDiceRolling ? 0.5 : 1,
+        }}
+      >
+        Roll Dice
+      </button>
     </div>
   );
 }
